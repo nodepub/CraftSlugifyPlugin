@@ -27,21 +27,6 @@ class SlugifyTwigExtension extends \Twig_Extension
     
     public function slugify($slug)
     {
-        // Remove HTML tags
-        $slug = preg_replace('/<(.*?)>/u', '', $slug);
-        
-        // Remove inner-word punctuation.
-        $slug = preg_replace('/[\'"‘’“”]/u', '', $slug);
-        
-        // Make it lowercase
-        $slug = mb_strtolower($slug, 'UTF-8');
-        
-        // Get the "words". Split on anything that is not a unicode letter or number.
-        // Periods are OK too.
-        preg_match_all('/[\p{L}\p{N}\.]+/u', $slug, $words);
-        $words = ArrayHelper::filterEmptyStringsFromArray($words[0]);
-        $slug = implode('-', $words);
-        
-        return $slug;
+        return ElementHelper::createSlug($slug);
     }
 }
